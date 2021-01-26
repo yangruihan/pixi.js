@@ -1,8 +1,8 @@
-const { resources } = require('../');
-const { ImageResource } = resources;
+const { ImageResource, BaseTexture, Renderer } = require('../');
+const { settings } = require('@pixi/settings');
 const path = require('path');
 
-describe('PIXI.resources.ImageResource', function ()
+describe('PIXI.ImageResource', function ()
 {
     before(function ()
     {
@@ -53,7 +53,10 @@ describe('PIXI.resources.ImageResource', function ()
 
         image.src = this.slugUrl;
 
-        const resource = new ImageResource(image, { autoLoad: false });
+        const resource = new ImageResource(image, {
+            autoLoad: false,
+            createBitmap: true,
+        });
 
         return resource.load().then((res) =>
         {
@@ -83,6 +86,114 @@ describe('PIXI.resources.ImageResource', function ()
             expect(resource.height).to.equal(100);
             expect(resource.valid).to.be.true;
             expect(resource.bitmap).to.be.null;
+        });
+    });
+
+    it('should handle error when resource is broken', function ()
+    {
+        const image = new Image();
+
+        image.src = '/';
+
+        const resource = new ImageResource(image, {
+            autoLoad: false,
+            createBitmap: false,
+        });
+
+        return resource.load().catch((error) =>
+        {
+            expect(error).to.be.not.null;
+        });
+    });
+
+    it('should handle the loaded event with createBitmapImage using global setting', function ()
+    {
+        const old = settings.CREATE_IMAGE_BITMAP;
+        const image = new Image();
+
+        settings.CREATE_IMAGE_BITMAP = true;
+        image.src = this.slugUrl;
+
+        const resource = new ImageResource(image, { autoLoad: false });
+
+        return resource.load().then((res) =>
+        {
+            expect(res).to.equal(resource);
+            expect(resource.createBitmap).to.equal(true);
+            expect(resource.width).to.equal(100);
+            expect(resource.height).to.equal(100);
+            expect(resource.valid).to.be.true;
+            expect(resource.bitmap).to.be.instanceof(ImageBitmap);
+            settings.CREATE_IMAGE_BITMAP = old;
+        });
+    });
+
+    it('should handle the loaded event with no createBitmapImage using global setting', function ()
+    {
+        const old = settings.CREATE_IMAGE_BITMAP;
+        const image = new Image();
+
+        settings.CREATE_IMAGE_BITMAP = false;
+        image.src = this.slugUrl;
+
+        const resource = new ImageResource(image, { autoLoad: false });
+
+        return resource.load().then((res) =>
+        {
+            expect(res).to.equal(resource);
+            expect(resource.createBitmap).to.equal(false);
+            expect(resource.width).to.equal(100);
+            expect(resource.height).to.equal(100);
+            expect(resource.valid).to.be.true;
+            expect(resource.bitmap).to.be.null;
+            settings.CREATE_IMAGE_BITMAP = old;
+        });
+    });
+
+    describe('alphaMode behaviour', function ()
+    {
+        before(function ()
+        {
+            this.renderer = new Renderer();
+        });
+
+        after(function ()
+        {
+            this.renderer.destroy();
+            this.renderer = null;
+        });
+
+        it('should override BaseTexture alphaMode if specified', function ()
+        {
+            const image = new Image();
+            const resource = new ImageResource(image, { autoLoad: false, alphaMode: 2 });
+            const baseTexture = new BaseTexture(resource);
+
+            image.src = this.slugUrl;
+
+            return resource.load(false).then(() =>
+            {
+                this.renderer.texture.bind(baseTexture);
+                expect(baseTexture.alphaMode).to.equal(2);
+            });
+        });
+
+        it('should not override BaseTexture alphaMode if not specified', function ()
+        {
+            const image = new Image();
+            const resource = new ImageResource(image, { autoLoad: false });
+            const baseTexture = new BaseTexture(resource);
+
+            baseTexture.alphaMode = 2;
+            expect(resource.alphaMode).to.be.null;
+
+            image.src = this.slugUrl;
+
+            return resource.load(false).then(() =>
+            {
+                this.renderer.texture.bind(baseTexture);
+                expect(baseTexture.alphaMode).to.equal(2);
+            });
         });
     });
 });

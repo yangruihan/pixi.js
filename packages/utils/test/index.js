@@ -36,7 +36,28 @@ describe('PIXI.utils', function ()
                 .to.be.a('function');
         });
 
-        // it('should properly convert number to hex color string');
+        const testCases = [
+            [0xffffff, '#ffffff'],
+            [0xf00000, '#f00000'],
+            [0x012345, '#012345'],
+            [0x010000, '#010000'],
+            [0x00abcd, '#00abcd'],
+            [0x00a000, '#00a000'],
+            [0x000987, '#000987'],
+            [0x000900, '#000900'],
+            [0x000012, '#000012'],
+            [0x000010, '#000010'],
+            [0x00000f, '#00000f'],
+            [0x000000, '#000000'],
+        ];
+
+        testCases.forEach(([num, result]) =>
+        {
+            it(`should properly convert number 0x${num.toString(16)} to hex color string #${result}`, () =>
+            {
+                expect(utils.hex2string(num)).to.equals(result);
+            });
+        });
     });
 
     describe('rgb2hex', function ()
@@ -188,6 +209,38 @@ describe('PIXI.utils', function ()
         {
             expect(utils.removeItems).to.be.a('function');
         });
+
+        it('should return if the start index is greater than or equal to the length of the array', function ()
+        {
+            const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+            utils.removeItems(arr, arr.length + 1, 5);
+            expect(arr.length).to.equal(10);
+        });
+
+        it('should return if the remove count is 0', function ()
+        {
+            const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+            utils.removeItems(arr, 2, 0);
+            expect(arr.length).to.equal(10);
+        });
+
+        it('should remove the number of elements specified from the array, starting from the start index', function ()
+        {
+            const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+            utils.removeItems(arr, 3, 4);
+            expect(arr).to.deep.equal([1, 2, 3, 8, 9, 10]);
+        });
+
+        it('should remove other elements if delete count is > than the number of elements after start index', function ()
+        {
+            const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+            utils.removeItems(arr, 7, 10);
+            expect(arr).to.deep.equal([1, 2, 3, 4, 5, 6, 7]);
+        });
     });
 
     describe('EventEmitter', function ()
@@ -208,32 +261,6 @@ describe('PIXI.utils', function ()
         it('should return a boolean for .any', function ()
         {
             expect(utils.isMobile.any).to.be.a('boolean');
-        });
-    });
-
-    describe('mixins', function ()
-    {
-        it('should exist', function ()
-        {
-            expect(utils.mixins).to.be.an('object');
-        });
-
-        it('should perform mixins', function ()
-        {
-            // eslint-disable-next-line
-            const target = function () {};
-            const source = {
-                foo: true,
-                bar: 1,
-            };
-
-            utils.mixins.delayMixin(target.prototype, source);
-            expect(target.prototype.foo).to.be.undefined;
-            expect(target.prototype.bar).to.be.undefined;
-
-            utils.mixins.performMixins();
-            expect(target.prototype.foo).to.equal(true);
-            expect(target.prototype.bar).to.equal(1);
         });
     });
 

@@ -1,8 +1,9 @@
 {
   "name": "@pixi/graphics",
-  "version": "5.0.0-rc.2",
-  "main": "lib/graphics.js",
-  "module": "lib/graphics.es.js",
+  "version": "6.0.0-rc.2",
+  "main": "dist/cjs/graphics.js",
+  "module": "dist/esm/graphics.js",
+  "bundle": "dist/browser/graphics.js",
   "description": "Draw primitive shapes such as lines, circles and rectangles to the display",
   "author": "Mat Groves",
   "contributors": [
@@ -18,21 +19,17 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "test": "floss --path test"
-  },
   "files": [
-    "lib"
+    "lib",
+    "dist",
+    "*.d.ts"
   ],
   "dependencies": {
-    "@pixi/constants": "^5.0.0-rc.2",
-    "@pixi/core": "^5.0.0-rc.2",
-    "@pixi/display": "^5.0.0-rc.2",
-    "@pixi/math": "^5.0.0-rc.2",
-    "@pixi/sprite": "^5.0.0-rc.2",
-    "@pixi/utils": "^5.0.0-rc.2"
-  },
-  "devDependencies": {
-    "floss": "^2.1.5"
+    "@pixi/constants": "6.0.0-rc.2",
+    "@pixi/core": "6.0.0-rc.2",
+    "@pixi/display": "6.0.0-rc.2",
+    "@pixi/math": "6.0.0-rc.2",
+    "@pixi/sprite": "6.0.0-rc.2",
+    "@pixi/utils": "6.0.0-rc.2"
   }
 }

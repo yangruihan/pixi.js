@@ -1,8 +1,9 @@
 {
   "name": "@pixi/math",
-  "version": "5.0.0-rc.2",
-  "main": "lib/math.js",
-  "module": "lib/math.es.js",
+  "version": "6.0.0-rc.2",
+  "main": "dist/cjs/math.js",
+  "module": "dist/esm/math.js",
+  "bundle": "dist/browser/math.js",
   "description": "Collection of math utilities",
   "author": "Mat Groves",
   "contributors": [
@@ -18,13 +19,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "test": "floss --path test"
-  },
   "files": [
-    "lib"
-  ],
-  "devDependencies": {
-    "floss": "^2.1.5"
-  }
+    "lib",
+    "dist",
+    "*.d.ts"
+  ]
 }

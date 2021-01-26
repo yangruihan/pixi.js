@@ -1,3 +1,6 @@
+# package.lock
+packages/**/package-lock.json
+
 # sublime text files
 *.sublime*
 *.*~*.TMP
@@ -25,9 +28,11 @@ lerna-debug.log
 node_modules
 docs
 coverage
-lib
+.nyc_output
 dist
 bundles/*/*.d.ts
+out
+packages/**/index.d.ts
 
 # jetBrains IDE ignores
 .idea
@@ -35,3 +40,6 @@ bundles/*/*.d.ts
 # VSCode ignores
 .vscode
 pixi.code-workspace
+
+# webdoc api
+dist/docs/pixi.api.json

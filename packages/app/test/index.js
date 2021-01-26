@@ -1,6 +1,6 @@
 const { Application } = require('../');
 const { autoDetectRenderer } = require('@pixi/canvas-renderer');
-const { Container } = require('@pixi/display');
+const { Container, DisplayObject } = require('@pixi/display');
 const { skipHello } = require('@pixi/utils');
 
 skipHello();
@@ -56,6 +56,30 @@ describe('PIXI.Application', function ()
         expect(document.body.contains(view)).to.be.false;
     });
 
+    it('should not destroy children by default', function ()
+    {
+        const app = new Application();
+        const stage = app.stage;
+        const child = new DisplayObject();
+
+        stage.addChild(child);
+
+        app.destroy(true);
+        expect(child.transform).to.not.be.null;
+    });
+
+    it('should allow children destroy', function ()
+    {
+        const app = new Application();
+        const stage = app.stage;
+        const child = new DisplayObject();
+
+        stage.addChild(child);
+
+        app.destroy(true, true);
+        expect(child.transform).to.be.null;
+    });
+
     describe('resizeTo', function ()
     {
         before(function ()
@@ -84,6 +108,79 @@ describe('PIXI.Application', function ()
             expect(app.view.width).to.equal(100);
             expect(app.view.height).to.equal(200);
             app.destroy();
+        });
+
+        it('should force multiple immediate resizes', function ()
+        {
+            const spy = sinon.spy();
+            const app = new Application({
+                resizeTo: this.div,
+            });
+
+            app.renderer.on('resize', spy);
+
+            app.resize();
+            app.resize();
+
+            expect(spy.calledTwice).to.be.true;
+
+            app.destroy();
+        });
+
+        it('should throttle multiple resizes', function (done)
+        {
+            const spy = sinon.spy();
+            const app = new Application({
+                resizeTo: this.div,
+            });
+
+            app.renderer.on('resize', spy);
+            app.queueResize();
+            app.queueResize();
+
+            setTimeout(() =>
+            {
+                expect(spy.calledOnce).to.be.true;
+                app.destroy();
+                done();
+            }, 50);
+        });
+
+        it('should cancel resize on destroy', function (done)
+        {
+            const spy = sinon.spy();
+            const app = new Application({
+                resizeTo: this.div,
+            });
+
+            app.renderer.on('resize', spy);
+            app.queueResize();
+            app.destroy();
+
+            requestAnimationFrame(() =>
+            {
+                expect(spy.called).to.be.false;
+                done();
+            });
+        });
+
+        it('should resize cancel resize queue', function (done)
+        {
+            const spy = sinon.spy();
+            const app = new Application({
+                resizeTo: this.div,
+            });
+
+            app.renderer.on('resize', spy);
+            app.queueResize();
+            app.resize();
+            app.destroy();
+
+            requestAnimationFrame(() =>
+            {
+                expect(spy.calledOnce).to.be.true;
+                done();
+            });
         });
 
         it('should resizeTo with resolution', function ()

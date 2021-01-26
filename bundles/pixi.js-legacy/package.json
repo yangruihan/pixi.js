@@ -1,6 +1,6 @@
 {
   "name": "pixi.js-legacy",
-  "version": "5.0.0-rc.2",
+  "version": "6.0.0-rc.2",
   "description": "The HTML5 Creation Engine: Create beautiful digital content with the fastest, most flexible 2D WebGL renderer.",
   "author": "Mat Groves",
   "contributors": [
@@ -9,10 +9,14 @@
     "Chad Engler <chad@pantherdev.com>",
     "Richard Davey <rdavey@gmail.com>"
   ],
-  "main": "lib/pixi-legacy.js",
-  "module": "lib/pixi-legacy.es.js",
-  "bundle": "dist/pixi-legacy.js",
-  "types": "pixi.js-legacy.d.ts",
+  "standalone": true,
+  "main": "dist/cjs/pixi-legacy.js",
+  "module": "dist/esm/pixi-legacy.js",
+  "bundle": "dist/browser/pixi-legacy.js",
+  "bundleModule": "dist/browser/pixi-legacy.mjs",
+  "bundleOutput": {
+    "name": "PIXI"
+  },
   "homepage": "http://www.pixijs.com/",
   "bugs": "https://github.com/pixijs/pixi.js/issues",
   "license": "MIT",
@@ -20,30 +24,26 @@
     "type": "git",
     "url": "https://github.com/pixijs/pixi.js.git"
   },
-  "scripts": {
-    "test": "floss --path test",
-    "build:min": "terser dist/pixi-legacy.js -c -m -o dist/pixi-legacy.min.js --source-map \"content='dist/pixi-legacy.js.map',includeSources=true,filename='dist/pixi-legacy.min.js.map',url='pixi-legacy.min.js.map'\" --comments \"/pixi.js-legacy - /\""
-  },
   "files": [
     "lib/",
     "dist/",
-    "pixi.js-legacy.d.ts"
+    "*.d.ts"
   ],
-  "dependencies": {
-    "@pixi/canvas-display": "^5.0.0-rc.2",
-    "@pixi/canvas-extract": "^5.0.0-rc.2",
-    "@pixi/canvas-graphics": "^5.0.0-rc.2",
-    "@pixi/canvas-mesh": "^5.0.0-rc.2",
-    "@pixi/canvas-particles": "^5.0.0-rc.2",
-    "@pixi/canvas-prepare": "^5.0.0-rc.2",
-    "@pixi/canvas-renderer": "^5.0.0-rc.2",
-    "@pixi/canvas-sprite": "^5.0.0-rc.2",
-    "@pixi/canvas-sprite-tiling": "^5.0.0-rc.2",
-    "@pixi/polyfill": "^5.0.0-rc.2",
-    "pixi.js": "^5.0.0-rc.2"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/pixijs"
   },
-  "devDependencies": {
-    "floss": "^2.1.5",
-    "terser": "^3.14.1"
+  "dependencies": {
+    "@pixi/canvas-display": "6.0.0-rc.2",
+    "@pixi/canvas-extract": "6.0.0-rc.2",
+    "@pixi/canvas-graphics": "6.0.0-rc.2",
+    "@pixi/canvas-mesh": "6.0.0-rc.2",
+    "@pixi/canvas-particles": "6.0.0-rc.2",
+    "@pixi/canvas-prepare": "6.0.0-rc.2",
+    "@pixi/canvas-renderer": "6.0.0-rc.2",
+    "@pixi/canvas-sprite": "6.0.0-rc.2",
+    "@pixi/canvas-sprite-tiling": "6.0.0-rc.2",
+    "@pixi/canvas-text": "6.0.0-rc.2",
+    "pixi.js": "6.0.0-rc.2"
   }
 }

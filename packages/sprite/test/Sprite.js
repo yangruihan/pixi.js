@@ -94,6 +94,24 @@ describe('PIXI.Sprite', function ()
         });
     });
 
+    describe('getLocalBounds', function ()
+    {
+        it('must have correct value according to texture size, width, height and anchor', function ()
+        {
+            const texture = new RenderTexture.create(20, 30);
+            const sprite = new Sprite(texture);
+
+            sprite.anchor.set(0.5, 0.5);
+
+            const bounds = sprite.getLocalBounds();
+
+            expect(bounds.x).to.equal(-10);
+            expect(bounds.y).to.equal(-15);
+            expect(bounds.width).to.equal(20);
+            expect(bounds.height).to.equal(30);
+        });
+    });
+
     describe('containsPoint', function ()
     {
         const texture = new RenderTexture.create(20, 30);
@@ -125,6 +143,29 @@ describe('PIXI.Sprite', function ()
             const point = new Point(100, 100);
 
             expect(sprite.containsPoint(point)).to.be.false;
+        });
+    });
+
+    describe('texture', function ()
+    {
+        it('should unsubscribe from old texture', function ()
+        {
+            const texture = new Texture(new BaseTexture());
+            const texture2 = new Texture(new BaseTexture());
+
+            const sprite = new Sprite(texture);
+
+            expect(texture._eventsCount).to.equal(1);
+            expect(texture2._eventsCount).to.equal(0);
+
+            sprite.texture = texture2;
+
+            expect(texture._eventsCount).to.equal(0);
+            expect(texture2._eventsCount).to.equal(1);
+
+            sprite.destroy();
+            texture.destroy(true);
+            texture2.destroy(true);
         });
     });
 

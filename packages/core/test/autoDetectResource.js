@@ -1,13 +1,11 @@
-const { resources } = require('../');
-const {
-    autoDetectResource,
+const { autoDetectResource,
     INSTALLED,
     CanvasResource,
     ImageResource,
     VideoResource,
-    SVGResource } = resources;
+    SVGResource } = require('../');
 
-describe('PIXI.resources.autoDetectResource', function ()
+describe('PIXI.autoDetectResource', function ()
 {
     it('should have api', function ()
     {
@@ -17,7 +15,7 @@ describe('PIXI.resources.autoDetectResource', function ()
     it('should have installed resources', function ()
     {
         expect(INSTALLED).to.be.an.array;
-        expect(INSTALLED.length).to.equal(7);
+        expect(INSTALLED.length).to.equal(8);
     });
 
     it('should auto-detect canvas element', function ()
@@ -79,5 +77,13 @@ describe('PIXI.resources.autoDetectResource', function ()
         const resource = autoDetectResource(null);
 
         expect(resource).to.equal(null);
+    });
+
+    it('should throw for unknown types', function ()
+    {
+        expect(() => autoDetectResource({})).throws;
+        expect(() => autoDetectResource(document.createElement('input'))).throws;
+        expect(() => autoDetectResource(2)).throws;
+        expect(() => autoDetectResource(true)).throws;
     });
 });

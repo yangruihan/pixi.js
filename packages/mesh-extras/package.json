@@ -1,9 +1,10 @@
 {
   "name": "@pixi/mesh-extras",
-  "version": "5.0.0-rc.2",
-  "main": "lib/mesh-extras.js",
-  "module": "lib/mesh-extras.es.js",
-  "description": "Custom Mesh display objects, like Rope and Plane",
+  "version": "6.0.0-rc.2",
+  "main": "dist/cjs/mesh-extras.js",
+  "module": "dist/esm/mesh-extras.js",
+  "bundle": "dist/browser/mesh-extras.js",
+  "description": "Custom Mesh display objects, like Rope and SimplePlane",
   "author": "Mat Groves",
   "contributors": [
     "Matt Karl <matt@mattkarl.com>"
@@ -18,21 +19,19 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "test": "floss --path test"
-  },
   "files": [
-    "lib"
+    "lib",
+    "dist",
+    "*.d.ts"
   ],
   "dependencies": {
-    "@pixi/constants": "^5.0.0-rc.2",
-    "@pixi/core": "^5.0.0-rc.2",
-    "@pixi/math": "^5.0.0-rc.2",
-    "@pixi/mesh": "^5.0.0-rc.2",
-    "@pixi/utils": "^5.0.0-rc.2"
+    "@pixi/constants": "6.0.0-rc.2",
+    "@pixi/core": "6.0.0-rc.2",
+    "@pixi/math": "6.0.0-rc.2",
+    "@pixi/mesh": "6.0.0-rc.2",
+    "@pixi/utils": "6.0.0-rc.2"
   },
   "devDependencies": {
-    "@pixi/loaders": "^5.0.0-rc.2",
-    "floss": "^2.1.5"
+    "@pixi/loaders": "6.0.0-rc.2"
   }
 }

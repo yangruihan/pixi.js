@@ -1,8 +1,9 @@
 {
   "name": "@pixi/canvas-renderer",
-  "version": "5.0.0-rc.2",
-  "main": "lib/canvas-renderer.js",
-  "module": "lib/canvas-renderer.es.js",
+  "version": "6.0.0-rc.2",
+  "main": "dist/cjs/canvas-renderer.js",
+  "module": "dist/esm/canvas-renderer.js",
+  "bundle": "dist/browser/canvas-renderer.js",
   "description": "Rendering using the Canvas API",
   "author": "Mat Groves",
   "contributors": [
@@ -18,20 +19,21 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "test": "floss --path test"
-  },
   "files": [
-    "lib"
+    "lib",
+    "dist",
+    "*.d.ts"
   ],
   "dependencies": {
-    "@pixi/constants": "^5.0.0-rc.2",
-    "@pixi/core": "^5.0.0-rc.2",
-    "@pixi/math": "^5.0.0-rc.2",
-    "@pixi/settings": "^5.0.0-rc.2",
-    "@pixi/utils": "^5.0.0-rc.2"
+    "@pixi/constants": "6.0.0-rc.2",
+    "@pixi/core": "6.0.0-rc.2",
+    "@pixi/math": "6.0.0-rc.2",
+    "@pixi/settings": "6.0.0-rc.2",
+    "@pixi/utils": "6.0.0-rc.2"
   },
   "devDependencies": {
-    "floss": "^2.1.5"
+    "@pixi/display": "6.0.0-rc.2",
+    "@pixi/graphics": "6.0.0-rc.2",
+    "@pixi/sprite": "6.0.0-rc.2"
   }
 }

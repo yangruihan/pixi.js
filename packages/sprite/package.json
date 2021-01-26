@@ -1,8 +1,9 @@
 {
   "name": "@pixi/sprite",
-  "version": "5.0.0-rc.2",
-  "main": "lib/sprite.js",
-  "module": "lib/sprite.es.js",
+  "version": "6.0.0-rc.2",
+  "main": "dist/cjs/sprite.js",
+  "module": "dist/esm/sprite.js",
+  "bundle": "dist/browser/sprite.js",
   "description": "Base object for textured objects rendered to the screen",
   "author": "Mat Groves",
   "contributors": [
@@ -18,21 +19,17 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "test": "floss --path test"
-  },
   "files": [
-    "lib"
+    "lib",
+    "dist",
+    "*.d.ts"
   ],
   "dependencies": {
-    "@pixi/constants": "^5.0.0-rc.2",
-    "@pixi/core": "^5.0.0-rc.2",
-    "@pixi/display": "^5.0.0-rc.2",
-    "@pixi/math": "^5.0.0-rc.2",
-    "@pixi/settings": "^5.0.0-rc.2",
-    "@pixi/utils": "^5.0.0-rc.2"
-  },
-  "devDependencies": {
-    "floss": "^2.1.5"
+    "@pixi/constants": "6.0.0-rc.2",
+    "@pixi/core": "6.0.0-rc.2",
+    "@pixi/display": "6.0.0-rc.2",
+    "@pixi/math": "6.0.0-rc.2",
+    "@pixi/settings": "6.0.0-rc.2",
+    "@pixi/utils": "6.0.0-rc.2"
   }
 }

@@ -1,8 +1,9 @@
 {
   "name": "@pixi/ticker",
-  "version": "5.0.0-rc.2",
-  "main": "lib/ticker.js",
-  "module": "lib/ticker.es.js",
+  "version": "6.0.0-rc.2",
+  "main": "dist/cjs/ticker.js",
+  "module": "dist/esm/ticker.js",
+  "bundle": "dist/browser/ticker.js",
   "description": "Tickers are control the timings within PixiJS",
   "author": "Mat Groves",
   "contributors": [
@@ -18,16 +19,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "test": "floss --path test"
-  },
   "files": [
-    "lib"
+    "lib",
+    "dist",
+    "*.d.ts"
   ],
   "dependencies": {
-    "@pixi/settings": "^5.0.0-rc.2"
-  },
-  "devDependencies": {
-    "floss": "^2.1.5"
+    "@pixi/settings": "6.0.0-rc.2"
   }
 }

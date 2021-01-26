@@ -1,8 +1,9 @@
 {
   "name": "@pixi/settings",
-  "version": "5.0.0-rc.2",
-  "main": "lib/settings.js",
-  "module": "lib/settings.es.js",
+  "version": "6.0.0-rc.2",
+  "main": "dist/cjs/settings.js",
+  "module": "dist/esm/settings.js",
+  "bundle": "dist/browser/settings.js",
   "description": "Collecting of user configurable settings used throughout PixiJS",
   "author": "Mat Groves",
   "contributors": [
@@ -18,16 +19,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "test": "floss --path test"
-  },
   "files": [
-    "lib"
+    "lib",
+    "dist",
+    "*.d.ts"
   ],
   "dependencies": {
-    "ismobilejs": "^0.5.1"
-  },
-  "devDependencies": {
-    "floss": "^2.1.5"
+    "ismobilejs": "^1.1.0"
   }
 }

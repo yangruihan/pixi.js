@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const batchPackages = require('@lerna/batch-packages');
 const { getPackages } = require('@lerna/project');
 
@@ -13,20 +14,24 @@ async function getSortedPackages()
     const packages = await getPackages(path.dirname(__dirname));
 
     return batchPackages(packages)
-        .reduce((arr, batch) => arr.concat(batch), [])
-        .filter((pkg) => !!pkg.scripts.test);
+        .reduce((arr, batch) => arr.concat(batch), []);
 }
 
 async function main()
 {
     const buffer = [];
+    const locations = {};
 
     (await getSortedPackages()).forEach((pkg) =>
     {
+        locations[pkg.name] = pkg.location;
         buffer.push(`${pkg.location}/test`);
     });
     // eslint-disable-next-line no-console
-    console.log(JSON.stringify(buffer));
+    console.log(JSON.stringify({
+        availableSuites: buffer.filter(fs.existsSync),
+        locations,
+    }));
 }
 
 main();
